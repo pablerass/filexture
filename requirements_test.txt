@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest==7.*
+flake8==6.*
+coverage==7.*
+mypy==1.*
+types-setuptools==75.*
