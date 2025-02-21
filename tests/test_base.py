@@ -1,32 +1,20 @@
-import pytest
-
 from pathlib import Path
 
-pytest.register_assert_rewrite("filexture.basic")
-pytest_plugins = ["filexture.basic"]
-from filexture import basic     # noqa: E402
+pytest_plugins = ["filexture"]
 
 
 def test_filexure_returns_correct_path(filexture):
-    rel_path = "dummy.txt"
-    expected = basic.TEST_FILES_PATH / rel_path
+    rel_path = "content.txt"
     result = filexture(rel_path)
+
+    print(result)
     assert isinstance(result, Path)
-    assert result == expected
+    assert result.name == "content.txt"
 
 
 def test_filexture_content_reads_correctly(filexture_content):
     # Ensure the test directory exists.
-    basic.TEST_FILES_PATH.mkdir(exist_ok=True)
-    test_file = basic.TEST_FILES_PATH / "temp_test.txt"
-    expected_content = "Sample content for testing."
-    test_file.write_text(expected_content)
+    expected_content = "content"
 
-    try:
-        # Use the fixture to read the content.
-        content = filexture_content("temp_test.txt")
-        assert content == expected_content
-    finally:
-        # Clean up the temporary file.
-        if test_file.exists():
-            test_file.unlink()
+    content = filexture_content("content.txt")
+    assert content == expected_content

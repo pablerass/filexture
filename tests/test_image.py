@@ -1,8 +1,7 @@
 from pathlib import Path
 from PIL import Image
 
-
-pytest_plugins = ["filexture.image"]
+pytest_plugins = ["filexture"]
 
 
 def test_random_image(random_image):
